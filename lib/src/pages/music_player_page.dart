@@ -10,7 +10,7 @@ class MusicPlayerPage extends StatelessWidget {
         body: Column(
       children: [
         CustomAppBar(),
-        SizedBox( height: 80),
+  
         DiscImageAndBarProgress(),
       ],
     ));
@@ -26,11 +26,59 @@ class DiscImageAndBarProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric( horizontal: 40),
+      margin: EdgeInsets.only( top: 100 ),
       child: Row(
         children: [
           ImagenDisco(),
 
-          //TODO: BarProgressCode
+          SizedBox(width: 40),
+
+          BarraProgreso(),
+        ],
+      ),
+    );
+  }
+}
+
+class BarraProgreso extends StatelessWidget {
+  const BarraProgreso({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    final estiloNumeros = TextStyle( color: Colors.white.withOpacity(0.5));
+
+    return Container(
+      child: Column(
+        children: [
+
+          Text('00:00', style: estiloNumeros),
+          SizedBox(height: 10),
+
+          Stack(
+            children: [
+
+          Container(
+            width: 4,
+            height: 240,
+            color: Colors.white.withOpacity(0.2),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              
+              width: 4,
+              height: 120,
+              color: Colors.white.withOpacity(0.9),
+            ),
+          ),
+            ],
+          ),   
+
+          SizedBox(height: 10),
+          Text('00:00', style: estiloNumeros),
         ],
       ),
     );
