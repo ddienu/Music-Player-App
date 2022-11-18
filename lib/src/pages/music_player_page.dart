@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:music_player/src/helpers/helpers.dart';
 import 'package:music_player/src/widgets/custom_appbar_widget.dart';
 
@@ -85,11 +85,34 @@ class ScrollLyrics extends StatelessWidget {
   }
 }
 
-class TituloYBotonPlay extends StatelessWidget {
+class TituloYBotonPlay extends StatefulWidget {
   const TituloYBotonPlay({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<TituloYBotonPlay> createState() => _TituloYBotonPlayState();
+}
+
+class _TituloYBotonPlayState extends State<TituloYBotonPlay> with SingleTickerProviderStateMixin {
+
+  bool isPlaying = false;
+  late AnimationController playAnimation;
+
+  @override
+  void initState() {
+    playAnimation = AnimationController(
+      vsync: this,
+      duration: Duration( milliseconds: 200),
+      );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    playAnimation.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,9 +147,18 @@ class TituloYBotonPlay extends StatelessWidget {
 
           FloatingActionButton(
             onPressed: (){
-              //TODO: Acciones del botón.
+              if ( isPlaying ){
+                playAnimation.reverse();
+                isPlaying = false;
+              }else{
+                playAnimation.forward();
+                isPlaying = true;
+              }
             },
-            child: Icon(FontAwesomeIcons.play),
+            child: AnimatedIcon(
+              icon: AnimatedIcons.play_pause, 
+              progress: playAnimation,
+              ),
             backgroundColor: Color(0xffF8CB51)
             ),
 
