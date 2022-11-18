@@ -9,17 +9,57 @@ class MusicPlayerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
+        body: Stack(
+          children: [
+            
+            Background(),
+
+            Column(
       children: [
-        CustomAppBar(),
 
-        DiscImageAndBarProgress(),
+            
+            CustomAppBar(),
 
-        TituloYBotonPlay(),
+            DiscImageAndBarProgress(),
 
-        ScrollLyrics()
+            TituloYBotonPlay(),
+
+            SizedBox( height: 30),
+
+            ScrollLyrics()
       ],
-    ));
+    ),
+          ],
+        ));
+  }
+}
+
+class Background extends StatelessWidget {
+  const Background({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      width: double.infinity,
+      height: size.height * 0.73,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(60) ),
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.center,
+          colors: [
+            Color(0xff484750),
+            Color(0xff201E28),
+          ]
+          )
+      ),
+    );
   }
 }
 
@@ -35,7 +75,7 @@ class ScrollLyrics extends StatelessWidget {
 
     return Expanded(
       child: ListWheelScrollView(
-        diameterRatio: 0.9,
+        diameterRatio: 1.2,
         itemExtent: 42,
         children: lyrics.map(
           (linea) => Text(linea, style: TextStyle( fontSize: 20, color: Colors.white.withOpacity(0.6)))
