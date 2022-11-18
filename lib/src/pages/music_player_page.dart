@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:music_player/src/widgets/custom_appbar_widget.dart';
 
 class MusicPlayerPage extends StatelessWidget {
@@ -10,10 +11,64 @@ class MusicPlayerPage extends StatelessWidget {
         body: Column(
       children: [
         CustomAppBar(),
-  
+
         DiscImageAndBarProgress(),
+
+        TituloYBotonPlay()
       ],
     ));
+  }
+}
+
+class TituloYBotonPlay extends StatelessWidget {
+  const TituloYBotonPlay({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric( horizontal: 20),
+      margin: EdgeInsets.only( top: 50),
+      child: Row(
+        children: [
+
+          SizedBox( width: 30),
+
+          Container(
+            child: Column(
+              children: [
+            
+                Text('Far Away', 
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 28
+                      ),
+                    ),
+                Text('-Breaking Benjamin-',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.5),
+                    fontSize: 14
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          Spacer(),
+
+          FloatingActionButton(
+            onPressed: (){
+              //TODO: Acciones del botón.
+            },
+            child: Icon(FontAwesomeIcons.play),
+            backgroundColor: Color(0xffF8CB51)
+            ),
+
+          SizedBox( width: 30)
+        ],
+      ),
+    );
   }
 }
 
@@ -31,9 +86,11 @@ class DiscImageAndBarProgress extends StatelessWidget {
         children: [
           ImagenDisco(),
 
-          SizedBox(width: 40),
+          Spacer(),
 
           BarraProgreso(),
+
+          SizedBox( width: 20)
         ],
       ),
     );
