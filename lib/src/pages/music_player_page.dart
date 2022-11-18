@@ -273,7 +273,7 @@ class ImagenDisco extends StatelessWidget {
                 infinite: true,
                 animate: false,
                 manualTrigger: true,
-                controller: ( animationController ) => audioPlayerModel.controller = animationController,
+                controller: ( animationController ) => audioPlayerModel.controller  = animationController,
                 child: Image(image: AssetImage('assets/aurora.jpg'))
                 ),
 
