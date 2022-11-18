@@ -1,7 +1,10 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import 'package:music_player/src/helpers/helpers.dart';
+import 'package:music_player/src/models/audioplayer_model.dart';
 import 'package:music_player/src/widgets/custom_appbar_widget.dart';
+import 'package:provider/provider.dart';
 
 class MusicPlayerPage extends StatelessWidget {
   const MusicPlayerPage({Key? key}) : super(key: key);
@@ -147,12 +150,18 @@ class _TituloYBotonPlayState extends State<TituloYBotonPlay> with SingleTickerPr
 
           FloatingActionButton(
             onPressed: (){
+
+              final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
+
               if ( isPlaying ){
                 playAnimation.reverse();
                 isPlaying = false;
+                audioPlayerModel.controller.stop();
+
               }else{
                 playAnimation.forward();
                 isPlaying = true;
+                audioPlayerModel.controller.repeat();
               }
             },
             child: AnimatedIcon(
@@ -246,6 +255,9 @@ class ImagenDisco extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
+
     return Container(
       padding: EdgeInsets.all(20),
       width: 250,
@@ -255,7 +267,16 @@ class ImagenDisco extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Image(image: AssetImage('assets/aurora.jpg')),
+
+              SpinPerfect(
+                duration: Duration(seconds: 10),
+                infinite: true,
+                animate: false,
+                manualTrigger: true,
+                controller: ( animationController ) => audioPlayerModel.controller = animationController,
+                child: Image(image: AssetImage('assets/aurora.jpg'))
+                ),
+
               Container(
                 width: 25,
                 height: 25,
