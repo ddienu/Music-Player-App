@@ -9,13 +9,15 @@ class AudioPlayerModel with ChangeNotifier{
   Duration _songDuration  = Duration( milliseconds: 0);
   Duration _current = Duration( milliseconds: 0);
 
+
   late AnimationController _controller;
+
 
   String get songTotalDuration => printDuration( _songDuration );
   String get currentSecond     => printDuration( _current );
 
-  double get poncentaje => ( songDuration.inSeconds > 0)
-                           ? _current.inSeconds.toDouble() - _songDuration.inSeconds.toDouble()
+  double get porcentaje => ( songDuration.inSeconds > 0)
+                           ? _current.inSeconds / _songDuration.inSeconds                      
                            : 0;
 
   bool get playing => _playing;
